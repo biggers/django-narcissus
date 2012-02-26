@@ -36,6 +36,12 @@
   </div>
 {% endblock %}
 
-{% block content-js %}
+{% block content_js %}
   <script src="{{ NARCISSUS_STATIC_URL }}js/article.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var articleView = new Narcissus.ArticleView({
+      postType: 'article',
+      urlValue: '#id_article_title'
+    })
+  </script>
 {% endblock %}
