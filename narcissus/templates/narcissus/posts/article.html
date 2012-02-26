@@ -2,27 +2,27 @@
 
 {% block content_title %}Article{% endblock %}
 
-{% block content_fields %}      
+{% block content_fields %}
   <div class="clearfix">
     {{ form.title.label_tag }}
     <div class="input">
-      <input class="span10" name="{{ form.title.name }}" id="{{ form.title.auto_id }}" type="text" />
+      <input class="post-field" name="{{ form.title.name }}" id="{{ form.title.auto_id }}" type="text" />
     </div>
   </div>
 
   <div class="clearfix">
     {{ form.content.label_tag }}
     <div class="input">
-      <textarea class="span10" name="{{ form.content.name }}" id="{{ form.content.auto_id }}" rows="15"></textarea>
+      <textarea class="post-field" name="{{ form.content.name }}" id="{{ form.content.auto_id }}" rows="15"></textarea>
     </div>
   </div>
-  
+
   <p><a href="#" id="article_show_description">Add a description?</a></p>
-  
+
   <div class="clearfix" id="article_description_input">
     {{ form.description.label_tag }}
     <div class="input">
-      <textarea class="span10" name="{{ form.description.name }}" id="{{ form.description.auto_id }}" rows="10"></textarea>
+      <textarea class="post-field" name="{{ form.description.name }}" id="{{ form.description.auto_id }}" rows="10"></textarea>
     </div>
   </div>
 {% endblock %}

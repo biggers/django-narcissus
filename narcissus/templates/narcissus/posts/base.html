@@ -5,40 +5,40 @@
 {% with posttype.form_instance as form %}
 <form class="form-stacked" id="{{ name }}-form" method="post" action="{% url 'narcissus-new-post' name %}">
   {% csrf_token %}
-  
+
   <div class="row">
-  
-    <div class="span-two-thirds">
+
+    <div class="span8">
       <div class="well">
         {% block content_fields %}{% endblock %}
       </div>
-    
+
       <fieldset class="outside-well">
 
         <div class="clearfix">
           {{ form.slug.label_tag }}
           <div class="input-prepend">
             <span class="add-on">/{{ name }}/{% now "Y/m/d" %}/</span>
-            <input class="span6" name="{{ form.slug.name }}" id="{{ form.slug.auto_id }}" type="text" />
+            <input class="post-field" name="{{ form.slug.name }}" id="{{ form.slug.auto_id }}" type="text" />
           </div>
         </div>
-      
+
         <div class="clearfix">
           {{ form.tags.label_tag }}
           <div class="input">
-            <input class="span10" name="{{ form.tags.name }}" id="{{ form.tags.auto_id }}" type="text" />
+            <input class="post-field" name="{{ form.tags.name }}" id="{{ form.tags.auto_id }}" type="text" />
           </div>
         </div>
-    
-      </fieldset>
-    </div><!-- /span-two-thirds -->
 
-    <div class="span-one-third">
-      
+      </fieldset>
+    </div>
+
+    <div class="span4">
+
       <fieldset>
         <legend>Details</legend>
 
-        <div class="clearfix">          
+        <div class="clearfix">
           {{ form.status.label_tag }}
           <div class="input">
             {{ form.status }}
@@ -51,7 +51,7 @@
             {{ form.language }}
           </div>
         </div>
-        
+
         {% block extra_details %}{% endblock %}
 
       </fieldset>
@@ -59,42 +59,34 @@
       <fieldset>
         <legend>Share this update?</legend>
         <div class="clearfix">
-          <div class="input">
-            <ul class="inputs-list">
-              <li>
-                <label>
-                  <input type="checkbox" name="share-with" value="twitter">
-                  <span>Twitter</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="share-with" value="facebook">
-                  <span>Facebook</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="share-with" value="google">
-                  <span>Google+</span>
-                </label>
-              </li>
-            </ul>
+          <div class="controls">
+            <label class="checkbox">
+              <input type="checkbox" name="share-with" value="twitter">
+              <span>Twitter</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" name="share-with" value="facebook">
+              <span>Facebook</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" name="share-with" value="google">
+              <span>Google+</span>
+            </label>
           </div>
         </div>
       </fieldset>
-      
-    </div><!-- /span-one-third -->
-    
-  </div><!-- /row -->
-  
+
+    </div>
+
+  </div>
+
   <div class="row actions submit-post" id="{{name}}-submit-post">
     <p>
       <button type="submit" class="btn large primary">Post</button>
       <button type="reset" class="btn large">Cancel</button>
     </p>
   </div>
-  
+
 </form>
 {% endwith %}
 

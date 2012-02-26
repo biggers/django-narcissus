@@ -40,7 +40,7 @@
     <div id="recent-activity">
       <div class="row">
         {% for post in posts %}
-        <div class="span-one-third">
+        <div class="span4">
           <h2>{{ post }}</h2>
           {% if post.get_teaser %}<p>{{ post.get_teaser }}</p>{% endif %}
           <p class="created-date">{{ post.created_date|timesince }} ago</p>
