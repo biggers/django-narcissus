@@ -4,9 +4,9 @@ $(function() {
     __init__: function(posttype, form_selector, url_value) {
       var self = this;
 
-      $("#status_count").twipsy({
+      $("#status_count").tooltip({
         placement: 'left'
-      })
+      });
 
       $(url_value).bind('keyup keydown', self.character_count);
 

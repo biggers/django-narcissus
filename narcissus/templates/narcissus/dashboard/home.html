@@ -1,9 +1,9 @@
 {% extends "narcissus/dashboard/base.html" %}
 
 {% block content %}
-  <div class="alert-message block-message info fade in" data-alert="alert">
-    <a class="close" href="#">×</a>
-    <p><strong>Welcome to the dashboard!</strong> This is where you can go to post new content on your site.  It also collects all of your recent posts in one place for easy editing.  To view and edit only a specific type of post, click one of the links along the top of the page.</p>
+  <div class="alert info fade in" data-alert="alert">
+    <a class="close" data-dismiss="alert">×</a>
+    <strong>Welcome to the dashboard!</strong> This is where you can go to post new content on your site.  It also collects all of your recent posts in one place for easy editing.  To view and edit only a specific type of post, click one of the links along the top of the page.
   </div>
 
   <div class="page-header">
@@ -13,17 +13,17 @@
     </h1>
   </div>
 
-  <ul class="tabs" data-tabs="tabs">
+  <ul class="nav nav-tabs">
     {% for name, posttype in posttypes.items %}
       <li{% if forloop.first %} class="active"{% endif %}>
-        <a href="#{{ name }}">{{ name.title }}</a>
+        <a href="#{{ name }}" data-toggle="tab">{{ name.title }}</a>
       </li>
     {% endfor %}
   </ul>
 
   <div class="tab-content">
     {% for name, posttype in posttypes.items %}
-      <div id="{{ name }}" class="tab-pane{% if forloop.first %} active{% endif %}">
+      <div id="{{ name }}" class="tab-pane{% if forloop.first %} active in{% endif %} fade">
         {% include posttype.edit_template %}
       </div>
     {% endfor %}

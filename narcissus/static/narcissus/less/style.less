@@ -1,9 +1,14 @@
 // Import Boostrap here instead of in the base template, so that all the useful
 // mixins are available to the site-specific styles.
 @import "lib/bootstrap.less";
+@import "lib/responsive.less";
+
+@iconSpritePath: "../../img/lib/glyphicons-halflings.png";
+@iconWhiteSpritePath: "../../img/lib/glyphicons-halflings-white.png";
 
 body {
   padding-top: 60px;
+  padding-bottom: 40px;
 }
 
 fieldset.outside-well {
@@ -20,30 +25,30 @@ fieldset.outside-well {
   form {
     padding-left: 0;
   }
-  
+
   div.submit {
     margin-bottom: 0;
-    
+
     p {
       margin-bottom: 0;
     }
-    
+
     strong {
       position: relative;
       top: 2px;
       font-size: 18px;
-      
+
       a {
         text-decoration: none;
         color: @grayLight;
-        
+
         &.error {
           color: @red;
         }
       }
-    } 
+    }
   }
-  
+
 }
 
 // Article
