@@ -4,28 +4,28 @@
  * animation.  Modified from Twitter's Bootstrap Modal class.
  */
 (function($) {
-  
+
   $.fn.backdrop = function(opts, callback) {
     var data = $(this).data(),
         transitionEnd,
         defaults = {
           "animate": true,
-    			"static": true
-    		},
-    		settings = $.extend({}, defaults, opts);
-    
+          "static": true
+        },
+        settings = $.extend({}, defaults, opts);
+
       // set CSS transition event type
       if ( $.support.transition ) {
-        transitionEnd = "TransitionEnd"
+        transitionEnd = "TransitionEnd";
         if ( $.browser.webkit ) {
-        	transitionEnd = "webkitTransitionEnd"
+          transitionEnd = "webkitTransitionEnd";
         } else if ( $.browser.mozilla ) {
-        	transitionEnd = "transitionend"
+          transitionEnd = "transitionend";
         } else if ( $.browser.opera ) {
-        	transitionEnd = "oTransitionEnd"
+          transitionEnd = "oTransitionEnd";
         }
       }
-      
+
     if (data.backdrop) {
       // There's already a backdrop.  Kill it.
       data.backdrop.removeClass('in');
@@ -40,7 +40,7 @@
       } else {
         removeElement();
       }
-      
+
     } else {
       var doAnimate = $.support.transition && settings.animate,
           fade = doAnimate ? 'fade' : '';
@@ -66,6 +66,6 @@
         }
       }
     }
-  }
+  };
 
 })(jQuery);
