@@ -12,11 +12,7 @@ Narcissus.ArticleView = Narcissus.PostView.extend({
     initialize: function(options) {
         Narcissus.PostView.prototype.initialize.call(this, options);
         _.bindAll(this, 'render', 'toggleDescription');
-        this.events['#article_show_description click'] = 'toggleDescription';
-    },
-
-    render: function() {
-        Narcissus.PostView.prototype.render.call(this);
+        this.events['click #article_show_description'] = 'toggleDescription';
         this.$descriptionInput.hide();
     },
 

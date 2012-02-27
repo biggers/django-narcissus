@@ -1,31 +1,27 @@
 Narcissus.PostView = Backbone.View.extend({
-    initialize: function (options) {
+
+    initialize: function(options) {
         _.bindAll(this, 'render', 'renderUrl', 'submitPost');
 
         this.postType = options.postType;
-        this.$form = $('#' + this.postType + '-form');
-        this.$urlInput = $('#id_' + self.postType + '_slug');
+        this.$urlInput = $('#id_' + this.postType + '_slug');
         this.$urlValue = $(options.urlValue);
 
         this.events = {};
-        this.events[options.urlValue + ' keyup'] = 'renderUrl';
-        this.events[options.urlValue + ' keydown'] = 'renderUrl';
-        this.events['#' + this.$form.attr('id') + ' submit'] = 'submitPost';
+        this.events['keyup ' + options.urlValue] = 'renderUrl';
+        this.events['keydown ' + options.urlValue] = 'renderUrl';
+        this.events['submit #' + this.$el.attr('id')] = 'submitPost';
 
-        this.render();
-    },
-
-    render: function() {
         var currentWidth = this.$urlInput.width();
         var prependWidth = this.$urlInput.prev('.add-on').outerWidth();
         this.$urlInput.width(currentWidth - prependWidth);
     },
 
-    renderUrl: function() {
-        this.$url_input.val(URLify($url_value.val(), 50));
+    renderUrl: function(event) {
+        this.$urlInput.val(URLify(this.$urlValue.val(), 50));
     },
 
-    submitPost: function() {
+    submitPost: function(event) {
         /*
          * Not yet converted to the Backbone-based structure
          */
@@ -101,4 +97,5 @@ Narcissus.PostView = Backbone.View.extend({
                 .next('span.help-inline').remove();
         });
     }
+
 });

@@ -11,19 +11,22 @@ Narcissus.UpdateView = Narcissus.PostView.extend({
 
     initialize: function(options) {
         Narcissus.PostView.prototype.initialize.call(this, options);
-        _.bindAll(this, 'render', 'renderCharacterCount');
-        this.events[options.urlValue + ' keyup'] = 'renderCharacterCount';
-        this.events[options.urlValue + ' keydown'] = 'renderCharacterCount';
+        _.bindAll(this, 'render', 'renderUrl', 'renderCharacterCount');
+        this.$statusElement.tooltip({placement: 'left'});
     },
 
-    render: function() {
-        Narcissus.PostView.prototype.render.call(this);
-        this.$statusElement.tooltip({placement: 'left'});
+    renderUrl: function() {
+        Narcissus.PostView.prototype.renderUrl.call(this);
+        this.renderCharacterCount();
+    },
+
+    delegateEvents: function(events) {
+        return Narcissus.PostView.prototype.delegateEvents.call(this, events);
     },
 
     renderCharacterCount: function() {
         var max = 300;
-        var remaining = max - $url_value.val().length;
+        var remaining = max - this.$urlValue.val().length;
         this.$statusElement.text(remaining);
 
         if (remaining > 0) {
