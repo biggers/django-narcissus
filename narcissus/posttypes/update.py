@@ -1,10 +1,14 @@
-from django.utils.text import truncate_words
+from djangorestframework.resources import ModelResource
 
 from narcissus.posttypes.base import BasePostType
 from narcissus.models import UpdatePost
 
 
-class UpdatePostType(BasePostType):
+class UpdateResource(ModelResource):
+    model = UpdatePost
 
+
+class UpdatePostType(BasePostType):
     edit_template = 'narcissus/posts/update.html'
     model = UpdatePost
+    resource = UpdateResource

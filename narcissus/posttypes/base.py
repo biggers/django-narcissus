@@ -20,6 +20,7 @@ class BasePostType(object):
     view_template = 'narcissus/posts/view.html'
 
     model = None  # The model represented by the PostType.
+    resource = None  # The API resource for the model
     form = None  # The form used for new posts.
 
     def __init__(self, instance=None):

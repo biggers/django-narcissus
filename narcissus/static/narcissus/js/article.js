@@ -1,5 +1,9 @@
 Narcissus.Article = Backbone.Model.extend({
 
+    urlRoot: function() {
+        return '/api/article';
+    },
+
     toString: function() {
         return this.get('title');
     }
@@ -8,10 +12,11 @@ Narcissus.Article = Backbone.Model.extend({
 
 Narcissus.ArticleView = Narcissus.PostView.extend({
     $descriptionInput: $('#article_description_input'),
+    modelClass: Narcissus.Article,
 
     initialize: function(options) {
         Narcissus.PostView.prototype.initialize.call(this, options);
-        _.bindAll(this, 'render', 'toggleDescription');
+        _.bindAll(this, 'toggleDescription');
         this.events['click #article_show_description'] = 'toggleDescription';
         this.$descriptionInput.hide();
     },

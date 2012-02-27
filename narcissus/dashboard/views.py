@@ -1,13 +1,10 @@
 from django.conf import settings
-from django.http import Http404
 from django.views.generic import TemplateView
-from django.views.generic.edit import BaseCreateView, BaseDeleteView
 
 from narcissus.posttypes import posttypes
 from narcissus.models import BasePost
 from narcissus.settings import STATIC_URL
-from narcissus.utils.views import (LoginRequiredMixin, AjaxModelFormMixin,
-                                   AjaxDeletionMixin)
+from narcissus.utils.views import LoginRequiredMixin
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -35,40 +32,3 @@ class HomeView(LoginRequiredMixin, TemplateView):
             'posts': posts,
         })
         return context
-
-
-class PostCreateView(LoginRequiredMixin, AjaxModelFormMixin, BaseCreateView):
-
-    def post(self, request, posttype_name):
-        try:
-            self.posttype = posttypes[posttype_name]
-        except KeyError:
-            raise Http404
-
-        return super(PostCreateView, self).post(request, posttype_name)
-
-    def get_form_class(self):
-        return self.posttype.get_form_class()
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-
-        # Set the posttype to the module_name, which is the related_name for
-        # traversing from the parent to child object in multi-table inheritance
-        form.instance.posttype = form.instance._meta.module_name
-
-        return super(PostCreateView, self).form_valid(form)
-
-
-class PostDeleteView(LoginRequiredMixin, AjaxDeletionMixin, BaseDeleteView):
-
-    def delete(self, request, posttype_name, *args, **kwargs):
-        try:
-            self.posttype = posttypes[posttype_name]
-        except KeyError:
-            raise Http404
-
-        self.queryset = self.posttype.model.objects.all()
-
-        return super(PostDeleteView, self).delete(request, posttype_name,
-                                                  *args, **kwargs)

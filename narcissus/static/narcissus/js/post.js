@@ -1,16 +1,16 @@
 Narcissus.PostView = Backbone.View.extend({
 
     initialize: function(options) {
-        _.bindAll(this, 'render', 'renderUrl', 'submitPost');
+        _.bindAll(this, 'renderUrl', 'submitPost');
 
         this.postType = options.postType;
         this.$urlInput = $('#id_' + this.postType + '_slug');
         this.$urlValue = $(options.urlValue);
 
         this.events = {};
+        this.events['submit'] = 'submitPost';
         this.events['keyup ' + options.urlValue] = 'renderUrl';
         this.events['keydown ' + options.urlValue] = 'renderUrl';
-        this.events['submit #' + this.$el.attr('id')] = 'submitPost';
 
         var currentWidth = this.$urlInput.width();
         var prependWidth = this.$urlInput.prev('.add-on').outerWidth();
