@@ -1,3 +1,5 @@
+import json
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.datastructures import SortedDict
@@ -37,4 +39,16 @@ def _get_posttypes():
     return _narcissus_posttypes
 
 
+def _get_posttypes_json():
+    posttype_dicts = []
+    for name, posttype in _get_posttypes().items():
+        posttype_dicts.append({
+            'name': name,
+            'edit_template': posttype.edit_template,
+            'backbone_model': posttype.backbone_model,
+        })
+    return json.dumps(posttype_dicts)
+
+
 posttypes = _get_posttypes()
+posttypes_json = _get_posttypes_json()

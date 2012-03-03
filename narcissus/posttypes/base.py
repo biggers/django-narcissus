@@ -23,6 +23,8 @@ class BasePostType(object):
     resource = None  # The API resource for the model
     form = None  # The form used for new posts.
 
+    backbone_model = None  # The Backbone.js model represented by the PostType
+
     def __init__(self, instance=None):
         # A post instance, used when displaying a post on the dashboard.
         self.instance = instance

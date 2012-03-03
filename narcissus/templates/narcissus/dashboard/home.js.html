@@ -1,0 +1,57 @@
+<script id="homeTemplate" type="text/x-underscore-tmpl">
+  <div class="alert info fade in" data-alert="alert">
+    <a class="close" data-dismiss="alert">×</a>
+    <strong>Welcome to the dashboard!</strong> This is where you can go to post new content on your site.  It also collects all of your recent posts in one place for easy editing.  To view and edit only a specific type of post, click one of the links along the top of the page.
+  </div>
+
+  <div class="page-header">
+    <h1>
+      Post something new
+      <small>Select a post type from the tabs below</small>
+    </h1>
+  </div>
+
+  <ul id="posttype-tabs" class="nav nav-tabs">
+    <% _.each(posttypes, function(posttype, i) { %>
+      <li<% if (i == 0) { %> class="active"<% } %>>
+        <a href="#<%= posttype.name %>" ><%= posttype.name %></a>
+      </li>
+    <% }); %>
+  </ul>
+
+  <div class="tab-content">
+    <% _.each(posttypes, function(posttype, i) { %>
+      <div id="<%= posttype.name %>" class="tab-pane<% if (i == 0) { %> active in<% } %> fade">
+        <!-- include posttype.edit_template -->
+      </div>
+    <% }); %>
+  </div>
+
+  <% if (posts) { %>
+    <div class="page-header">
+      <h1>
+        Recent activity
+        <small>Here's what you've been up to lately</small>
+      </h1>
+    </div>
+
+    <div id="recent-activity">
+      <div class="row">
+        <% _.each(posts, function(post, i) { %>
+        <div class="span4">
+          <h2><%= post %></h2>
+          <% if (post.teaser) { %><p><%= post.teaser %></p><% } %>
+          <p class="created-date"><%= post.created_date|timesince %> ago</p>
+          <p><a class="btn" href="<%= post.url %>">View details &raquo;</a></p>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  <% } %>
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    Narcissus.homeTemplate = _.template($('#homeTemplate').text());
+  });
+</script>

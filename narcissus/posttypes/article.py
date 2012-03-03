@@ -12,3 +12,4 @@ class ArticlePostType(BasePostType):
     edit_template = 'narcissus/posts/article.html'
     model = ArticlePost
     resource = ArticleResource
+    backbone_model = 'Narcissus.Article'
