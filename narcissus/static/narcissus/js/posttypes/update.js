@@ -11,12 +11,22 @@ Narcissus.Update = Backbone.Model.extend({
 });
 
 Narcissus.UpdateView = Narcissus.PostView.extend({
-    $statusElement: $('#status_count'),
     modelClass: Narcissus.Update,
+    postTypeName: 'update',
+    urlValue: '#id_message',
 
     initialize: function(options) {
+        _.bindAll(this, 'render', 'renderUrl', 'renderCharacterCount');
         Narcissus.PostView.prototype.initialize.call(this, options);
-        _.bindAll(this, 'renderUrl', 'renderCharacterCount');
+    },
+
+    render: function() {
+        Narcissus.PostView.prototype.render.call(this);
+
+        $('#content-title').text('Status Update');
+        $('#content-fields').html(Narcissus.updateTemplate());
+
+        this.$statusElement = $('#status_count');
         this.$statusElement.tooltip({placement: 'left'});
     },
 

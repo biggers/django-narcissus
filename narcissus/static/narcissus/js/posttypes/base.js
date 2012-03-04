@@ -1,16 +1,27 @@
 Narcissus.PostView = Backbone.View.extend({
+    el: '#posttype-content',
 
-    initialize: function(options) {
-        _.bindAll(this, 'renderUrl', 'submitPost');
+    initialize: function() {
+        _.bindAll(this, 'render', 'renderUrl', 'submitPost');
 
-        this.postType = options.postType;
-        this.$urlInput = $('#id_' + this.postType + '_slug');
-        this.$urlValue = $(options.urlValue);
+        this.postType = _.find(Narcissus.postTypes, function(postType) {
+            return postType.name == this.postTypeName;
+        }, this);
 
         this.events = {};
         this.events['submit'] = 'submitPost';
-        this.events['keyup ' + options.urlValue] = 'renderUrl';
-        this.events['keydown ' + options.urlValue] = 'renderUrl';
+        this.events['keyup ' + this.urlValue] = 'renderUrl';
+        this.events['keydown ' + this.urlValue] = 'renderUrl';
+
+        this.render();
+
+        this.$urlValue = $(this.urlValue);
+    },
+
+    render: function() {
+        this.$el.html(Narcissus.basePostTemplate({postType: this.postType}));
+
+        this.$urlInput = $('#id_slug');
 
         var currentWidth = this.$urlInput.width();
         var prependWidth = this.$urlInput.prev('.add-on').outerWidth();

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.serializers import serialize
 from django.views.generic import TemplateView
 
 from narcissus.posttypes import posttypes_json
@@ -10,7 +11,7 @@ from narcissus.utils.views import LoginRequiredMixin
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "narcissus/dashboard/base.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, path=None, **kwargs):
         posts = []
         for base_post in BasePost.objects.all():
             # Get the actual type-specific post object using the multi-table
@@ -22,7 +23,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
             'NARCISSUS_STATIC_URL': STATIC_URL,
             'LOGOUT_URL': settings.LOGOUT_URL,
             'user': self.request.user,
-            'posttypes': posttypes_json,
-            'posts': posts,
+            'post_types': posttypes_json,
+            'posts': serialize('json', posts),
         })
         return context

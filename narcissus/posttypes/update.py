@@ -9,7 +9,7 @@ class UpdateResource(ModelResource):
 
 
 class UpdatePostType(BasePostType):
-    edit_template = 'narcissus/posts/update.html'
     model = UpdatePost
     resource = UpdateResource
     backbone_model = 'Narcissus.Update'
+    backbone_view = 'Narcissus.UpdateView'

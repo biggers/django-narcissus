@@ -1,0 +1,21 @@
+<script id="updateTemplate" type="text/x-underscore-template">
+  <fieldset>
+    <legend>What are you up to?</legend>
+    <div class="clearfix">
+      <div class="input">
+        <textarea class="post-field" id="id_message" name="message" rows="3"></textarea>
+      </div>
+    </div><!-- /clearfix -->
+  </fieldset>
+
+  <div class="submit clearfix">
+    <p class="pull-right">
+      <strong><a rel='twipsy' title='Remaining characters' id="status_count">300</a></strong>
+    </p>
+  </div><!-- /clearfix -->
+</script>
+
+<script type="text/javascript">
+  Narcissus.updateTemplate = _.template($('#updateTemplate').text());
+</script>
+

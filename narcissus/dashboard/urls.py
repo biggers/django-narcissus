@@ -9,7 +9,6 @@ from narcissus.settings import STATIC_URL
 
 
 urlpatterns = patterns('',
-    url(r'^$', HomeView.as_view(), name='narcissus-home'),
     url(r'^login/$', 'django.contrib.auth.views.login',
         kwargs={'template_name': 'narcissus/dashboard/login.html',
                 'extra_context': {'NARCISSUS_STATIC_URL': STATIC_URL}},
@@ -19,6 +18,7 @@ urlpatterns = patterns('',
                 'extra_context': {'NARCISSUS_STATIC_URL': STATIC_URL,
                                   'LOGIN_URL': settings.LOGIN_URL}},
         name='narcissus-logout'),
+    url(r'^(?:(?P<path>.+)?)/?$', HomeView.as_view(), name='narcissus-home'),
 )
 
 
