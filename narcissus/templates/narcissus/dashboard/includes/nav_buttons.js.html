@@ -1,0 +1,11 @@
+<script id="navButtonTemplate" type="text/x-underscore-template">
+  <% _.each(Narcissus.postTypes, function(postType) { %>
+    <li class="posttype-link<% if (postType.name == currentPostType.name) { %> active<% } %>">
+      <a href="/dashboard/<%= postType.name %>/"><%= postType.verbose_name_plural %></a>
+    </li>
+  <% }); %>
+</script>
+
+<script type="text/javascript">
+  Narcissus.navButtonTemplate = _.template($('#navButtonTemplate').text());
+</script>

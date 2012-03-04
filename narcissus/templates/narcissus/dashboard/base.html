@@ -34,15 +34,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="{% url 'narcissus-home' %}">Narcissus</a>
+          <a class="brand posttype-link" href="{% url 'narcissus-home' %}">Narcissus</a>
           {% block navigation %}
             <div class="nav-collapse">
-              <ul class="nav">
-                <li class="active"><a href="#">Dashboard</a></li>
-                {% for name, posttype in posttypes.items %}
-                  <li><a href="#{{ name }}">{{ posttype.get_verbose_name_plural.title }}</a></li>
-                {% endfor %}
-              </ul>
+              <ul id="main-nav-buttons" class="nav"></ul>
 
               {% if user.is_authenticated %}
                 <ul class="nav pull-right">
@@ -97,8 +92,7 @@
       Narcissus.posts = {{ posts|safe }};
 
       $(function() {
-        new Narcissus.AppView();
-        new Narcissus.AppRouter();
+        Narcissus.appRouter = new Narcissus.AppRouter();
         Backbone.history.start({pushState: true});
       });
 
@@ -114,8 +108,10 @@
 
     <!-- Templates -->
     {% include "narcissus/dashboard/home.js.html" %}
+    {% include "narcissus/dashboard/includes/nav_buttons.js.html" %}
     {% include "narcissus/posts/base.js.html" %}
     {% include "narcissus/posts/update.js.html" %}
+    {% include "narcissus/posts/article.js.html" %}
 
     {% block extra_js %}{% endblock %}
 

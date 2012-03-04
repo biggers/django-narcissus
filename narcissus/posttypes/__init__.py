@@ -46,6 +46,8 @@ def _get_posttypes_json():
             'name': name,
             'model': posttype.backbone_model,
             'view': posttype.backbone_view,
+            'verbose_name': posttype.get_verbose_name(),
+            'verbose_name_plural': posttype.get_verbose_name_plural(),
         })
     return json.dumps(posttype_dicts)
 

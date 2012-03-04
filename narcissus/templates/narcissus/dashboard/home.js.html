@@ -12,9 +12,9 @@
   </div>
 
   <ul id="posttype-tabs" class="nav nav-tabs">
-    <% _.each(Narcissus.postTypes, function(posttype, i) { %>
-      <li<% if (i == 0) { %> class="active"<% } %>>
-        <a href="/dashboard/<%= posttype.name %>/" ><%= posttype.name %></a>
+    <% _.each(Narcissus.postTypes, function(postType) { %>
+      <li class="posttype-link<% if (postType.name == currentPostType.name) { %> active<% } %>">
+        <a href="/dashboard/<%= postType.name %>/" ><%= postType.name %></a>
       </li>
     <% }); %>
   </ul>

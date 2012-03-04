@@ -9,19 +9,20 @@ Narcissus.AppRouter = Backbone.Router.extend({
         /*
          * Render the template for the first posttype available.
          */
-        var postType = Narcissus.postTypes[0],
-            postTypeView = window;
 
-        // This feels hacky and inflexible, but it's safer than eval()
-        _.each(postType.view.split('.'), function(attr) {
-            postTypeView = postTypeView[attr];
-        });
-
-        new postTypeView();
+        postType = Narcissus.postTypes[0];
+        Narcissus.appView = new Narcissus.AppView({currentPostType: postType});
     },
 
-    posttype: function(postType) {
-
+    posttype: function(postTypeName) {
+        /*
+         * Render the template for the specified posttype.
+         */
+        var postType, postTypeView = window;
+        postType = _.find(Narcissus.postTypes, function(postType) {
+            return postType.name == postTypeName;
+        });
+        Narcissus.appView = new Narcissus.AppView({currentPostType: postType});
     }
 
 });
