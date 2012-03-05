@@ -9,6 +9,7 @@ class ArticleResource(ModelResource):
 
 
 class ArticlePostType(BasePostType):
+    title = "Article"
     model = ArticlePost
     resource = ArticleResource
     backbone_model = 'Narcissus.Article'

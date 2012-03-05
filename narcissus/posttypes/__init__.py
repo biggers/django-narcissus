@@ -44,6 +44,7 @@ def _get_posttypes_json():
     for name, posttype in _get_posttypes().items():
         posttype_dicts.append({
             'name': name,
+            'title': posttype.title,
             'model': posttype.backbone_model,
             'view': posttype.backbone_view,
             'verbose_name': posttype.get_verbose_name(),

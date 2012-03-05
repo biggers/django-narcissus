@@ -26,6 +26,8 @@ Narcissus.PostView = Backbone.View.extend({
         var currentWidth = this.$urlInput.width();
         var prependWidth = this.$urlInput.prev('.add-on').outerWidth();
         this.$urlInput.width(currentWidth - prependWidth);
+
+        $('#content-title').text(this.postType.title);
     },
 
     renderUrl: function(event) {

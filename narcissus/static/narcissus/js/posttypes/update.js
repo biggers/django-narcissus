@@ -23,7 +23,6 @@ Narcissus.UpdateView = Narcissus.PostView.extend({
     render: function() {
         Narcissus.PostView.prototype.render.call(this);
 
-        $('#content-title').text('Status Update');
         $('#content-fields').html(Narcissus.updateTemplate());
 
         this.$statusElement = $('#status_count');

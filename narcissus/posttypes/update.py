@@ -9,6 +9,7 @@ class UpdateResource(ModelResource):
 
 
 class UpdatePostType(BasePostType):
+    title = 'Status Update'
     model = UpdatePost
     resource = UpdateResource
     backbone_model = 'Narcissus.Update'
