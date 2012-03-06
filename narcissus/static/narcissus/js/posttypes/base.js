@@ -38,6 +38,8 @@ Narcissus.PostView = Backbone.View.extend({
         var self = this;
         event.preventDefault();
 
+        this.$form = $('#' + this.postType.name + '-form');
+
         $('div.input, div.input-prepend').each(function() {
             $(self).parent().removeClass('error');
             $(self).children('input, textarea, select').removeClass('error')
@@ -47,10 +49,15 @@ Narcissus.PostView = Backbone.View.extend({
         this.$el.backdrop({}, function() {
             self.$el.spin();
 
+            var data = {};
+            _.each(self.$form.find(":input"), function(input) {
+                if (input.name) data[input.name] = $(input).val();
+            });
+
             if (typeof self.model === 'undefined') {
-                self.model = new self.modelClass(self.$el.serialize());
+                self.model = new self.modelClass();
             }
-            self.model.save({}, {
+            self.model.save(data, {
                 success: function(model, response) {
                     self.$el.spin(false);
                     self.$el.backdrop();
@@ -67,7 +74,7 @@ Narcissus.PostView = Backbone.View.extend({
                     self.$el.backdrop();
 
                     $.each(response.errors, function(field, errors) {
-                        var $input = $('#id_' + self.postType + '_' + field);
+                        var $input = $('#id_' + field);
                         $input.addClass('error').parent().parent().addClass('error');
                         $input.after('<span class="help-inline">' + errors.join(' ') + '</span>');
                     });
