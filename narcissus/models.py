@@ -1,6 +1,4 @@
 from django.conf import settings
-from django.contrib.contenttypes import generic
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.html import strip_tags
 from django.utils.text import truncate_words, truncate_html_words
@@ -9,6 +7,16 @@ from django.utils.translation import gettext_lazy as _
 from django_markup.fields import MarkupField
 from django_markup.markup import formatter
 from taggit.managers import TaggableManager
+
+
+class RestFrameworkTaggableManager(TaggableManager):
+    """
+    Subclass to fix "'TaggableManager' object has no attribute
+    'm2m_reverse_field_name'" errors when using Taggit with Rest Framework.
+    """
+
+    def m2m_reverse_field_name(self):
+        return self.through._meta.get_field_by_name("tag")[0].name
 
 
 class BasePost(models.Model):
@@ -39,7 +47,7 @@ class BasePost(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
-    tags = TaggableManager(blank=True)
+    tags = RestFrameworkTaggableManager(blank=True)
 
     class Meta:
         verbose_name = _(u'base post')

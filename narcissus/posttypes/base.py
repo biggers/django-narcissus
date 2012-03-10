@@ -1,3 +1,17 @@
+from djangorestframework.resources import ModelResource
+
+
+class BaseResource(ModelResource):
+    model = None  # The model the form should be based on
+    allow_unknown_form_fields = True
+
+    def validate_request(self, data, files=None):
+        """Automatically populate the author and posttype"""
+        data['author'] = self.view.request.user.id
+        data['posttype'] = self.model._meta.module_name
+        return super(BaseResource, self).validate_request(data, files)
+
+
 class BasePostType(object):
     """
     PostType objects describe how the dashboard handles a particular post type.

@@ -1,10 +1,8 @@
-from djangorestframework.resources import ModelResource
-
-from narcissus.posttypes.base import BasePostType
+from narcissus.posttypes.base import BaseResource, BasePostType
 from narcissus.models import UpdatePost
 
 
-class UpdateResource(ModelResource):
+class UpdateResource(BaseResource):
     model = UpdatePost
 
 
