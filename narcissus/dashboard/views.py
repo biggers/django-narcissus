@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.serializers import serialize
 from django.views.generic import TemplateView
 
+from djangorestframework import permissions
+
 from narcissus.posttypes import posttypes_json
 from narcissus.models import BasePost
 from narcissus.settings import STATIC_URL
@@ -27,3 +29,20 @@ class HomeView(LoginRequiredMixin, TemplateView):
             'posts': serialize('json', posts),
         })
         return context
+
+
+class SameUserOrReadOnly(permissions.BasePermission):
+    """
+    The request is authenticated as the user that owns the post, or is a
+    read-only request.
+    """
+
+    def check_permission(self, user):
+        if self.view.method not in permissions.SAFE_METHODS:
+            instance = self.view.get_instance()
+            if hasattr(instance, 'username'):
+                instance_user = instance
+            else:
+                instance_user = getattr(instance, 'author', None)
+            if user != instance_user:
+                raise permissions._403_FORBIDDEN_RESPONSE

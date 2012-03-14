@@ -2,3 +2,4 @@ Django==1.4
 django-taggit==0.9.3
 django-markup==0.4
 djangorestframework==0.3.3
+factory_boy==1.1.3

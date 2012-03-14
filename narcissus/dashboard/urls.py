@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 
+from djangorestframework import permissions
 from djangorestframework.views import ListOrCreateModelView, InstanceModelView
 
-from narcissus.dashboard.views import HomeView
+from narcissus.dashboard.views import HomeView, SameUserOrReadOnly
 from narcissus.posttypes import posttypes
+from narcissus.posttypes.base import UserResource
 from narcissus.settings import STATIC_URL
 
 
@@ -25,12 +27,23 @@ urlpatterns = patterns('',
 def add_narcissus_urls(urls):
     urls += patterns('',
         url(r'^dashboard/', include('narcissus.dashboard.urls')),
+        url(r'^api/user/(?P<pk>[^/]+)/$', InstanceModelView.as_view(
+            resource=UserResource, permissions=(SameUserOrReadOnly,),
+        ), name='narcissus-user-detail'),
     )
     for name, posttype in posttypes.items():
         urls += patterns('',
             url(r'^api/%s/$' % name,
-                ListOrCreateModelView.as_view(resource=posttype.resource)),
+                ListOrCreateModelView.as_view(
+                    resource=posttype.resource,
+                    permissions=(permissions.IsUserOrIsAnonReadOnly,),
+                ),
+                name='narcissus-api-%s' % name),
             url(r'^api/%s/(?P<pk>[^/]+)/$' % name,
-                InstanceModelView.as_view(resource=posttype.resource)),
+                InstanceModelView.as_view(
+                    resource=posttype.resource,
+                    permissions=(SameUserOrReadOnly,),
+                ),
+                name='narcissus-api-%s-detail' % name),
         )
     return urls

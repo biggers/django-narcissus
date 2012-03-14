@@ -1,8 +1,16 @@
+from django.contrib.auth.models import User
 from djangorestframework.resources import ModelResource
+
+
+class UserResource(ModelResource):
+    model = User
+    fields = ('first_name', 'last_name', 'last_login', 'date_joined')
 
 
 class BaseResource(ModelResource):
     model = None  # The model the form should be based on
+    fields = ('posttype', 'status', ('author', UserResource), 'language',
+              'slug', 'created_date', 'updated_date')
     allow_unknown_form_fields = True
 
     def validate_request(self, data, files=None):
