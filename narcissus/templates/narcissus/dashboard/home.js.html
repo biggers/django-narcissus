@@ -21,7 +21,6 @@
 
   <div id="posttype-content" class="tab-content"></div>
 
-  <% /*
   <% if (Narcissus.posts.length) { %>
     <div class="page-header">
       <h1>
@@ -34,16 +33,15 @@
       <div class="row">
         <% _.each(Narcissus.posts, function(post, i) { %>
         <div class="span4">
-          <h2><%= post %></h2>
+          <h2><%= post.get('teaser') %></h2>
           <% if (post.teaser) { %><p><%= post.teaser %></p><% } %>
-          <abbr class="created-date timeago" title="<%= post.created_timestamp %>"><%= post.created_date %> ago</abbr>
+          <abbr class="created-date" title="<%= post.created_timestamp %>"><%= post.created_date %> ago</abbr>
           <p><a class="btn" href="<%= post.url %>">View details &raquo;</a></p>
         </div>
         <% }); %>
       </div>
     </div>
   <% } %>
-  <% */ %>
 </script>
 
 <script type="text/javascript">

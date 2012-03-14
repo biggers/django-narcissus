@@ -84,3 +84,6 @@ Narcissus.PostView = Backbone.View.extend({
     }
 
 });
+
+
+Narcissus.PostCollection = Backbone.Collection.extend({});

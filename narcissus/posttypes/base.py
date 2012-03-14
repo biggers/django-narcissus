@@ -1,16 +1,28 @@
 from django.contrib.auth.models import User
 from djangorestframework.resources import ModelResource
+from narcissus.utils.time import to_epoch
 
 
 class UserResource(ModelResource):
     model = User
-    fields = ('first_name', 'last_name', 'last_login', 'date_joined')
+    fields = ('first_name', 'last_name', 'get_last_login', 'get_date_joined')
+    rename = {'get_last_login': 'last_login',
+              'get_date_joined': 'date_joined'}
+
+    def get_last_login(self, instance):
+        return to_epoch(instance.last_login)
+
+    def get_date_joined(self, instance):
+        return to_epoch(instance.date_joined)
 
 
 class BaseResource(ModelResource):
     model = None  # The model the form should be based on
     fields = ('posttype', 'status', ('author', UserResource), 'language',
-              'slug', 'created_date', 'updated_date')
+              'slug', 'get_created_date', 'get_updated_date', 'get_teaser')
+    rename = {'get_created_date': 'created_date',
+              'get_updated_date': 'updated_date',
+              'get_teaser': 'teaser'}
     allow_unknown_form_fields = True
 
     def validate_request(self, data, files=None):
@@ -18,6 +30,12 @@ class BaseResource(ModelResource):
         data['author'] = self.view.request.user.id
         data['posttype'] = self.model._meta.module_name
         return super(BaseResource, self).validate_request(data, files)
+
+    def get_created_date(self, instance):
+        return to_epoch(instance.created_date)
+
+    def get_updated_date(self, instance):
+        return to_epoch(instance.updated_date)
 
 
 class BasePostType(object):
