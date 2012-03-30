@@ -1,5 +1,5 @@
-Interface Examples
-==================
+Django-Narcissus
+================
 
 This project aims to provide an easily usable blog engine for Django with a
 built-in dashboard based on Backbone.js and Twitter Bootstrap to make it very
@@ -10,6 +10,10 @@ deeply integrate Backbone.js with a Django application.
 The Bootstrap styles will stay default for the first couple of releases, and
 then I'll focus on some customization to give Narcissus a unique and
 attractive dashboard interface.
+
+
+Interface Examples
+------------------
 
 
 Status Updates
