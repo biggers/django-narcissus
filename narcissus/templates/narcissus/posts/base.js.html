@@ -3,7 +3,7 @@
 
     <h2 id="content-title"></h2>
 
-    <form class="form-stacked" id="<%= postType.name %>-form" action="">
+    <form class="form-stacked" id="<%= postType.get('name') %>-form" action="">
 
       <div class="row">
 
@@ -15,7 +15,7 @@
             <div class="clearfix">
               <label for="id_slug">Slug</label>
               <div class="input-prepend">
-                <span class="add-on">/<%= postType.name %>/{% now "Y/m/d" %}/</span>
+                <span class="add-on">/<%= postType.get('name') %>/{% now "Y/m/d" %}/</span>
                 <input class="post-field" name="slug" id="id_slug" type="text" />
               </div>
             </div>

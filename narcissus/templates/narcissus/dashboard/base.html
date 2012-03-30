@@ -92,7 +92,7 @@
 
       $(function() {
         Narcissus.postTypes = new Narcissus.PostTypeCollection({{ post_types|safe }});
-        Narcissus.posts = {{ posts|safe }};
+        Narcissus.posts = new Narcissus.PostCollection({{ posts|safe }});
 
         Narcissus.appRouter = new Narcissus.AppRouter();
         Backbone.history.start({pushState: true});
