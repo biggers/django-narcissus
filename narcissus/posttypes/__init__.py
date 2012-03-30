@@ -40,10 +40,13 @@ def _get_posttypes():
 
 
 def _get_posttypes_json():
+    """Get the JSON needed to construct Backbone models"""
     posttype_dicts = []
     for name, posttype in _get_posttypes().items():
         posttype_dicts.append({
             'name': name,
+            # Used to look up PostTypes from Post.posttype attributes
+            'posttype_name': posttype.model._meta.module_name,
             'title': posttype.title,
             'model': posttype.backbone_model,
             'view': posttype.backbone_view,

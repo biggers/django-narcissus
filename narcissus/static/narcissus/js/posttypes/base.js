@@ -1,7 +1,34 @@
 Narcissus.PostType = Backbone.Model.extend({
 
+    initialize: function() {
+        _.bindAll(this, 'toString', 'getView', 'getModel', '_resolveAttribute');
+    },
+
     toString: function() {
         return this.get('title');
+    },
+
+    getView: function() {
+        /* Get the view that this PostType uses */
+        return this._resolveAttribute('view');
+    },
+
+    getModel: function() {
+        /* Get the view that this PostType uses */
+        return this._resolveAttribute('model');
+    },
+
+    _resolveAttribute: function(attr) {
+        /*
+         * Resolve a string attribute on the PostType into an actual
+         * JavaScript class. This feels hacky and inflexible, but it's safer
+         * than eval().
+         */
+        var Class = window;
+        _.each(this.get(attr).split('.'), function(newAttr) {
+            Class = Class[newAttr];
+        });
+        return Class;
     }
 
 });
@@ -12,7 +39,30 @@ Narcissus.PostTypeCollection = Backbone.Collection.extend({
 });
 
 
-Narcissus.PostCollection = Backbone.Collection.extend({});
+Narcissus.PostCollection = Backbone.Collection.extend({
+
+    _prepareModel: function(model, options) {
+        /*
+         * Instead of relying on this.model, use the appropriate postType
+         * model.
+         */
+        options || (options = {});
+        if (!(model instanceof Backbone.Model)) {
+            var modelPostType, Model, attrs = model;
+            options.collection = this;
+            modelPostType = Narcissus.postTypes.find(function(postType) {
+                return postType.get('posttype_name') == model['posttype'];
+            }, this);
+            Model = modelPostType.getModel();
+            model = new Model(attrs, options);
+            if (!model._validate(model.attributes, options)) model = false;
+        } else if (!model.collection) {
+            model.collection = this;
+        }
+        return model;
+    }
+
+});
 
 
 Narcissus.PostView = Backbone.View.extend({

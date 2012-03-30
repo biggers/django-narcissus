@@ -5,14 +5,9 @@ Narcissus.AppView = Backbone.View.extend({
         _.bindAll(this, 'render');
         this.currentPostType = options.currentPostType;
 
-        // This feels hacky and inflexible, but it's safer than eval()
-        var postTypeView = window;
-        _.each(this.currentPostType.get('view').split('.'), function(attr) {
-            postTypeView = postTypeView[attr];
-        });
-
         this.render();
-        this.postTypeView = new postTypeView();
+        var PostTypeView = this.currentPostType.getView();
+        this.postTypeView = new PostTypeView();
     },
 
     render: function() {
