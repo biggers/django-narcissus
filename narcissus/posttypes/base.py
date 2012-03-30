@@ -18,11 +18,13 @@ class UserResource(ModelResource):
 
 class BaseResource(ModelResource):
     model = None  # The model the form should be based on
-    fields = ('posttype', 'status', ('author', UserResource), 'language',
-              'slug', 'get_created_date', 'get_updated_date', 'get_teaser')
+    fields = ('__unicode__', 'posttype', 'status', ('author', UserResource),
+              'language', 'slug', 'get_created_date', 'get_updated_date',
+              'get_teaser')
     rename = {'get_created_date': 'created_date',
               'get_updated_date': 'updated_date',
-              'get_teaser': 'teaser'}
+              'get_teaser': 'teaser',
+              '__unicode__': 'display_title'}
     allow_unknown_form_fields = True
 
     def validate_request(self, data, files=None):

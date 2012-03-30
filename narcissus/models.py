@@ -65,10 +65,10 @@ class UpdatePost(BasePost):
         verbose_name_plural = _(u'updates')
 
     def __unicode__(self):
-        return truncate_words(self.message, 3)
+        return truncate_words(self.message, 15)
 
     def get_teaser(self):
-        return self.message
+        return None
 
 
 class ArticlePost(BasePost):

@@ -1,5 +1,5 @@
 <script id="navButtonTemplate" type="text/x-underscore-template">
-  <% _.each(Narcissus.postTypes, function(postType) { %>
+  <% Narcissus.postTypes.each(function(postType) { %>
     <li class="posttype-link<% if (postType.get('name') == currentPostType.get('name')) { %> active<% } %>">
       <a href="/dashboard/<%= postType.get('name') %>/"><%= postType.get('verbose_name_plural') %></a>
     </li>

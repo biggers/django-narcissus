@@ -1,9 +1,3 @@
- * Convert the json for each model type into a Backbone model inside a
-   collection. This will be a little tricky because there could be different
-   types of models mingling together in a single collection. this.model is not
-   necessary - you can customize create to build the right type of model based
-   on the posttype attribute.
-
  * Useful rendering of posts on the dashboard
 
  * More post types

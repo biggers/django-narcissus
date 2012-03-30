@@ -12,7 +12,7 @@
   </div>
 
   <ul id="posttype-tabs" class="nav nav-tabs">
-    <% _.each(Narcissus.postTypes, function(postType) { %>
+    <% Narcissus.postTypes.each(function(postType) { %>
       <li class="posttype-link<% if (postType.get('name') == currentPostType.get('name')) { %> active<% } %>">
         <a href="/dashboard/<%= postType.get('name') %>/" ><%= postType.get('name') %></a>
       </li>
@@ -31,12 +31,14 @@
 
     <div id="recent-activity">
       <div class="row">
-        <% _.each(Narcissus.posts, function(post, i) { %>
+        <% Narcissus.posts.each(function(post, i) { %>
         <div class="span4">
-          <h2><%= post.get('title') %></h2>
+          <h3>
+            <%= post.get('display_title') %>
+            <small><abbr class="created-date" title="<%= moment(parseInt(post.get('created_date'))) %>"><%= moment(parseInt(post.get('created_date'))).fromNow() %></abbr></small>
+          </h3>
           <% if (post.get('teaser')) { %><p><%= post.get('teaser') %></p><% } %>
-          <abbr class="created-date" title="<%= post.created_timestamp %>"><%= post.created_date %> ago</abbr>
-          <p><a class="btn" href="<%= post.url %>">View details &raquo;</a></p>
+          <p><a class="btn" href="<%= post.url %>">Edit post &raquo;</a></p>
         </div>
         <% }); %>
       </div>

@@ -2,10 +2,6 @@ Narcissus.Update = Backbone.Model.extend({
 
     urlRoot: function() {
         return '/api/update/';
-    },
-
-    toString: function() {
-        return this.get('message').split(" ").slice(0, 3).join(" ");
     }
 
 });

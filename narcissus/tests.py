@@ -64,8 +64,9 @@ class UpdateTestCase(BaseTestCase):
                     "you lost sight of thousands of years ago.")
         update = UpdateFactory.create(message=message)
         self.assertEqual(str(update),
-                         "What I do, ...")
-        self.assertEqual(update.get_teaser(), message)
+                         "What I do, I do for the good of the universe. "
+                         "Something you lost sight ...")
+        self.assertEqual(update.get_teaser(), None)
 
     def test_unauthenticated(self):
         """Anonymous users should be denied write access"""
