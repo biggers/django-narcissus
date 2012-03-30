@@ -1,3 +1,20 @@
+Narcissus.PostType = Backbone.Model.extend({
+
+    toString: function() {
+        return this.get('title');
+    }
+
+});
+
+
+Narcissus.PostTypeCollection = Backbone.Collection.extend({
+    model: Narcissus.PostType
+});
+
+
+Narcissus.PostCollection = Backbone.Collection.extend({});
+
+
 Narcissus.PostView = Backbone.View.extend({
     el: '#posttype-content',
 
@@ -84,6 +101,3 @@ Narcissus.PostView = Backbone.View.extend({
     }
 
 });
-
-
-Narcissus.PostCollection = Backbone.Collection.extend({});

@@ -7,7 +7,7 @@ Narcissus.AppView = Backbone.View.extend({
 
         // This feels hacky and inflexible, but it's safer than eval()
         var postTypeView = window;
-        _.each(this.currentPostType.view.split('.'), function(attr) {
+        _.each(this.currentPostType.get('view').split('.'), function(attr) {
             postTypeView = postTypeView[attr];
         });
 

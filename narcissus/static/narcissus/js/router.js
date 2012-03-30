@@ -10,8 +10,8 @@ Narcissus.AppRouter = Backbone.Router.extend({
          * Redirect to the first PostType available
          */
 
-        postType = Narcissus.postTypes[0];
-        this.navigate('/dashboard/' + postType.name + "/", {trigger: true});
+        postType = Narcissus.postTypes.at(0);
+        this.navigate('/dashboard/' + postType.get('name') + "/", {trigger: true});
     },
 
     posttype: function(postTypeName) {
@@ -19,10 +19,10 @@ Narcissus.AppRouter = Backbone.Router.extend({
          * Render the template for the specified posttype.
          */
         var postType, postTypeView = window;
-        postType = _.find(Narcissus.postTypes, function(postType) {
-            return postType.name == postTypeName;
+        postType = Narcissus.postTypes.find(function(postType) {
+            return postType.get('name') == postTypeName;
         });
-        document.title = postType.title + " : Narcissus";
+        document.title = postType.get('title') + " : Narcissus";
         Narcissus.appView = new Narcissus.AppView({currentPostType: postType});
     }
 
