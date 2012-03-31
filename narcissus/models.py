@@ -94,13 +94,10 @@ class ArticlePost(BasePost):
     def word_count(self):
         return len(strip_tags(self.rendered_content).split())
 
-    def get_teaser(self, truncate=30):
+    def get_teaser(self):
         if self.description:
             teaser = formatter(self.description, filter_name=self.markup)
         else:
             teaser = self.rendered_content
 
-        if truncate:
-            return truncate_html_words(teaser, truncate)
-        else:
-            return teaser
+        return truncate_html_words(teaser, 50)

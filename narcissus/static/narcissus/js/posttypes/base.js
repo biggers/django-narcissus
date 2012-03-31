@@ -142,7 +142,7 @@ Narcissus.PostView = Backbone.View.extend({
                       'Your post was successful!</div>')
                         .prependTo('#submit-post');
 
-                    var t = setTimeout(function() {
+                    setTimeout(function() {
                         $('.alert-success').alert('close');
                     }, 4000);
 
