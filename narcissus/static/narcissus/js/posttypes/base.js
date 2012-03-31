@@ -37,12 +37,18 @@ Narcissus.PostType = Backbone.Model.extend({
 Narcissus.PostTypeCollection = Backbone.Collection.extend({
     model: Narcissus.PostType,
 
-    getFromName: function(posttype_name) {
+    getFromName: function(name) {
+        return this.find(function(postType) {
+            return postType.get('name') == name;
+        }, this);
+    },
+
+    getFromPostTypeName: function(posttype_name) {
         return this.find(function(postType) {
             return postType.get('posttype_name') == posttype_name;
         }, this);
-
     }
+
 });
 
 
@@ -57,7 +63,7 @@ Narcissus.PostCollection = Backbone.Collection.extend({
         if (!(model instanceof Backbone.Model)) {
             var modelPostType, Model, attrs = model;
             options.collection = this;
-            modelPostType = Narcissus.postTypes.getFromName(model['posttype']);
+            modelPostType = Narcissus.postTypes.getFromPostTypeName(model['posttype']);
             Model = modelPostType.getModel();
             model = new Model(attrs, options);
             if (!model._validate(model.attributes, options)) model = false;
@@ -71,7 +77,7 @@ Narcissus.PostCollection = Backbone.Collection.extend({
 
 
 Narcissus.PostView = Backbone.View.extend({
-    el: '#posttype-content',
+    el: '#post-content',
 
     initialize: function() {
         _.bindAll(this, 'render', 'renderUrl', 'submitPost');
@@ -161,4 +167,8 @@ Narcissus.PostView = Backbone.View.extend({
         });
     }
 
+});
+
+Narcissus.PostDetailView = Backbone.View.extend({
+    el: '#post-content',
 });

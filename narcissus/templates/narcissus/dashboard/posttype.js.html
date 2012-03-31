@@ -1,4 +1,4 @@
-<script id="homeTemplate" type="text/x-underscore-template">
+<script id="postTypeTemplate" type="text/x-underscore-template">
   <div class="alert info fade in">
     <a class="close" data-dismiss="alert">×</a>
     <strong>Welcome to the dashboard!</strong> This is where you can go to post new content on your site.  It also collects all of your recent posts in one place for easy editing.  To view and edit only a specific type of post, click one of the links along the top of the page.
@@ -19,7 +19,7 @@
     <% }); %>
   </ul>
 
-  <div id="posttype-content" class="tab-content"></div>
+  <div id="post-content" class="tab-content"></div>
 
   <% if (Narcissus.posts.length) { %>
     <div class="page-header">
@@ -36,12 +36,12 @@
           <h3>
             <%= post.get('display_title') %>
             <small>
-              <%= Narcissus.postTypes.getFromName(post.get('posttype')).get('title') %>
+              <%= Narcissus.postTypes.getFromPostTypeName(post.get('posttype')).get('title') %>
               posted <%= moment(parseInt(post.get('created_date'))).fromNow() %>
             </small>
           </h3>
           <% if (post.get('teaser')) { %><p><%= post.get('teaser') %></p><% } %>
-          <p><a class="btn" href="<%= post.url() %>">Edit post &raquo;</a></p>
+          <p><a class="btn edit-link" href="<%= post.id %>/">Edit post &raquo;</a></p>
         </div>
         <% }); %>
       </div>
@@ -50,5 +50,5 @@
 </script>
 
 <script type="text/javascript">
-  Narcissus.homeTemplate = _.template($('#homeTemplate').text());
+  Narcissus.postTypeTemplate = _.template($('#postTypeTemplate').text());
 </script>
