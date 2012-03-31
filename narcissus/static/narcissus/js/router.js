@@ -6,6 +6,12 @@ Narcissus.AppRouter = Backbone.Router.extend({
         "dashboard/:posttype/:id/": "post"
     },
 
+    navigate: function(fragment, options) {
+        /* Scroll to the top on navigation */
+        $("html, body").animate({scrollTop: 0}, "fast");
+        Backbone.Router.prototype.navigate.call(this, fragment, options);
+    },
+
     dashboard: function() {
         /*
          * Redirect to the first PostType available
