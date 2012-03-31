@@ -7,6 +7,10 @@ easy for users to create entries and for developers to customize the
 experience. It is also intended to be a fully fleshed-out example of how to
 deeply integrate Backbone.js with a Django application.
 
+A long-term goal is to make Narcissus easy to install and use for a non-
+developer, finding ways to make Django apps more accessible for users that are
+only moderately technical.
+
 The Bootstrap styles will stay default for the first couple of releases, and
 then I'll focus on some customization to give Narcissus a unique and
 attractive dashboard interface.

@@ -35,7 +35,14 @@ Narcissus.PostType = Backbone.Model.extend({
 
 
 Narcissus.PostTypeCollection = Backbone.Collection.extend({
-    model: Narcissus.PostType
+    model: Narcissus.PostType,
+
+    getFromName: function(posttype_name) {
+        return this.find(function(postType) {
+            return postType.get('posttype_name') == posttype_name;
+        }, this);
+
+    }
 });
 
 
@@ -50,9 +57,7 @@ Narcissus.PostCollection = Backbone.Collection.extend({
         if (!(model instanceof Backbone.Model)) {
             var modelPostType, Model, attrs = model;
             options.collection = this;
-            modelPostType = Narcissus.postTypes.find(function(postType) {
-                return postType.get('posttype_name') == model['posttype'];
-            }, this);
+            modelPostType = Narcissus.postTypes.getFromName(model['posttype']);
             Model = modelPostType.getModel();
             model = new Model(attrs, options);
             if (!model._validate(model.attributes, options)) model = false;

@@ -35,7 +35,10 @@
         <div class="span4">
           <h3>
             <%= post.get('display_title') %>
-            <small><abbr class="created-date" title="<%= moment(parseInt(post.get('created_date'))) %>"><%= moment(parseInt(post.get('created_date'))).fromNow() %></abbr></small>
+            <small>
+              <%= Narcissus.postTypes.getFromName(post.get('posttype')).get('title') %>
+              posted <%= moment(parseInt(post.get('created_date'))).fromNow() %>
+            </small>
           </h3>
           <% if (post.get('teaser')) { %><p><%= post.get('teaser') %></p><% } %>
           <p><a class="btn" href="<%= post.url %>">Edit post &raquo;</a></p>
