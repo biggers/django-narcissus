@@ -121,25 +121,31 @@ Narcissus.PostView = Backbone.View.extend({
         this.$el.backdrop({}, function() {
             self.$el.spin();
 
-            var data = {};
+            var data = {}, created = false;
             _.each(self.$form.find(":input"), function(input) {
                 if (input.name) data[input.name] = $(input).val();
             });
 
             if (typeof self.model === 'undefined') {
                 self.model = new self.modelClass();
+                created = true;
             }
             self.model.save(data, {
                 success: function(model, response) {
                     self.$el.spin(false);
                     self.$el.backdrop();
 
-                    $('<div class="alert-message success" data-alert="alert">' +
-                      '<a class="close" href="#">×</a><p>Your post was successful!</p></div>')
-                        .prependTo('#' + self.postType + '-submit-post')
-                        .fadeOut(4000, function() {
-                            $(this).remove();
-                        });
+                    if (created) Narcissus.posts.add(self.model, {at: 0});
+
+                    $('<div class="alert alert-success fade in" data-alert="alert">' +
+                      '<a class="close" data-dismiss="alert">×</a>' +
+                      'Your post was successful!</div>')
+                        .prependTo('#submit-post');
+
+                    var t = setTimeout(function() {
+                        $('.alert-success').alert('close');
+                    }, 4000);
+
                 },
                 error: function(model, response) {
                     self.$el.spin(false);

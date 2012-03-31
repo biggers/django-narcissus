@@ -3,11 +3,11 @@ Narcissus.AppView = Backbone.View.extend({
 
     initialize: function(options) {
         _.bindAll(this, 'render');
+
         this.currentPostType = options.currentPostType;
+        Narcissus.posts.on('add change destroy', this.render, this);
 
         this.render();
-        var PostTypeView = this.currentPostType.getView();
-        this.postTypeView = new PostTypeView();
     },
 
     render: function() {
@@ -26,5 +26,9 @@ Narcissus.AppView = Backbone.View.extend({
             );
             return false;
         });
+
+        var PostTypeView = this.currentPostType.getView();
+        this.postTypeView = new PostTypeView();
     }
+
 });
