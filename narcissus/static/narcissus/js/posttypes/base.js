@@ -137,7 +137,7 @@ Narcissus.PostView = Backbone.View.extend({
 
                     if (created) Narcissus.posts.add(self.model, {at: 0});
 
-                    $('<div class="alert alert-success fade in" data-alert="alert">' +
+                    $('<div class="alert alert-success fade in">' +
                       '<a class="close" data-dismiss="alert">×</a>' +
                       'Your post was successful!</div>')
                         .prependTo('#submit-post');
