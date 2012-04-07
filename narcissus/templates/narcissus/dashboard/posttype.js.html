@@ -16,7 +16,7 @@
       <li class="posttype-link<% if (postType.get('name') == currentPostType.get('name')) { %> active<% } %>">
         <a href="/dashboard/<%= postType.get('name') %>/" ><%= postType.get('name') %></a>
       </li>
-    <% }); %>
+    <% }) %>
   </ul>
 
   <div id="post-content" class="tab-content"></div>
@@ -43,7 +43,7 @@
           <% if (post.get('teaser')) { %><p><%= post.get('teaser') %></p><% } %>
           <p><a class="btn edit-link" href="<%= post.id %>/">Edit post &raquo;</a></p>
         </div>
-        <% }); %>
+        <% }) %>
       </div>
     </div>
   <% } %>

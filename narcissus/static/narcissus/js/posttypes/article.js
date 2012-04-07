@@ -24,8 +24,12 @@ Narcissus.ArticleView = Narcissus.PostView.extend({
     render: function() {
         Narcissus.PostView.prototype.render.call(this);
 
-        $('#content-fields').html(Narcissus.articleTemplate());
-        $('#extra-details').html(Narcissus.articleExtrasTemplate());
+        $('#content-fields').html(Narcissus.articleTemplate({
+            currentPost: this.currentPost
+        }));
+        $('#extra-details').html(Narcissus.articleExtrasTemplate({
+            currentPost: this.currentPost
+        }));
 
         this.$descriptionInput = $('#article_description_input');
         this.$descriptionInput.hide();

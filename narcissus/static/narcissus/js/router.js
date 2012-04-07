@@ -22,17 +22,15 @@ Narcissus.AppRouter = Backbone.Router.extend({
     },
 
     posttype: function(name) {
-        /* Render the template for the specified posttype */
-        var postType;
-        postType = Narcissus.postTypes.getFromName(name);
+        /* View a specific post type */
+        var postType = Narcissus.postTypes.getFromName(name);
         document.title = postType.get('title') + " : Narcissus";
         Narcissus.appView = new Narcissus.AppView({currentPostType: postType});
     },
 
     post: function(postTypeName, postId) {
-        /* Render the template for a specific post */
-        var post;
-        post = Narcissus.posts.get(parseInt(postId));
+        /* Edit a specific post */
+        var post = Narcissus.posts.get(parseInt(postId));
         document.title = post.get('display_title') + " : Narcissus";
         Narcissus.appView = new Narcissus.AppView({currentPost: post});
     }

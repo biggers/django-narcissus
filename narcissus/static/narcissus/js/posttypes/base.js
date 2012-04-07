@@ -79,12 +79,16 @@ Narcissus.PostCollection = Backbone.Collection.extend({
 Narcissus.PostView = Backbone.View.extend({
     el: '#post-content',
 
-    initialize: function() {
+    initialize: function(options) {
         _.bindAll(this, 'render', 'renderUrl', 'submitPost');
 
-        this.postType = Narcissus.postTypes.find(function(postType) {
-            return postType.get('name') == this.postTypeName;
-        }, this);
+        this.postType = Narcissus.postTypes.getFromName(this.postTypeName);
+
+        this.currentPost = options.currentPost;
+        if (typeof this.currentPost === 'undefined') {
+            this.currentPost = new this.modelClass();
+            this.postCreated = true;
+        }
 
         this.events = {};
         this.events['submit'] = 'submitPost';
@@ -97,7 +101,10 @@ Narcissus.PostView = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(Narcissus.basePostTemplate({postType: this.postType}));
+        this.$el.html(Narcissus.basePostTemplate({
+            postType: this.postType,
+            currentPost: this.currentPost
+        }));
 
         this.$urlInput = $('#id_slug');
 
@@ -127,21 +134,17 @@ Narcissus.PostView = Backbone.View.extend({
         this.$el.backdrop({}, function() {
             self.$el.spin();
 
-            var data = {}, created = false;
+            var data = {};
             _.each(self.$form.find(":input"), function(input) {
                 if (input.name) data[input.name] = $(input).val();
             });
 
-            if (typeof self.model === 'undefined') {
-                self.model = new self.modelClass();
-                created = true;
-            }
-            self.model.save(data, {
+            self.currentPost.save(data, {
                 success: function(model, response) {
                     self.$el.spin(false);
                     self.$el.backdrop();
 
-                    if (created) Narcissus.posts.add(self.model, {at: 0});
+                    if (self.postCreated) Narcissus.posts.add(self.currentPost, {at: 0});
 
                     $('<div class="alert alert-success fade in">' +
                       '<a class="close" data-dismiss="alert">×</a>' +
@@ -167,8 +170,4 @@ Narcissus.PostView = Backbone.View.extend({
         });
     }
 
-});
-
-Narcissus.PostDetailView = Backbone.View.extend({
-    el: '#post-content',
 });
