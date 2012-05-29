@@ -15,8 +15,9 @@
             <div class="clearfix">
               <label for="id_slug">Slug</label>
               <div class="input-prepend">
-                <span class="add-on">/<%= postType.get('name') %>/{% now "Y/m/d" %}/</span>
-                <input class="post-field" name="slug" id="id_slug" type="text" />
+                <span class="add-on">
+                  /<%= postType.get('name') %>/{% now "Y/m/d" %}/
+                </span><input class="post-field" name="slug" id="id_slug" type="text" />
               </div>
             </div>
 
