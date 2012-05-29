@@ -50,6 +50,11 @@ class BasePostType(object):
     backbone_model = None  # The Backbone.js model used by the PostType
     backbone_view = None  # The Backbone.js view used by the PostType
 
+    # An optional dict of extra details to store on the PostType. For example,
+    # the built-in Article type stores the Markup choices so that empty models
+    # can fill the markup_choices attribute.
+    extra_details = {}
+
     def __init__(self, instance=None):
         # A post instance, used when displaying a post on the dashboard.
         self.instance = instance

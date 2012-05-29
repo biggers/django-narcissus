@@ -1,5 +1,12 @@
 Narcissus.Article = Backbone.Model.extend({
 
+    initialize: function(attributes) {
+        if (this.get('markup') === undefined) {
+            this.postType = Narcissus.postTypes.getFromName('article');
+            this.set('markup', this.postType.get('extra_details').markup_default);
+        }
+    },
+
     urlRoot: function() {
         return '/api/article/';
     },
@@ -25,9 +32,11 @@ Narcissus.ArticleView = Narcissus.PostView.extend({
         Narcissus.PostView.prototype.render.call(this);
 
         $('#content-fields').html(Narcissus.articleTemplate({
+            postType: this.postType,
             currentPost: this.currentPost
         }));
         $('#extra-details').html(Narcissus.articleExtrasTemplate({
+            postType: this.postType,
             currentPost: this.currentPost
         }));
 

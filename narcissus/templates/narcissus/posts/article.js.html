@@ -37,7 +37,7 @@
     <div class="input">
       <div class="input">
         <select name="markup" id="id_article_markup">
-          <% _.each(currentPost.get('markup_choices'), function(choice) { %>
+          <% _.each(postType.get('extra_details').markup_choices, function(choice) { %>
             <option value="<%= choice[0] %>"<% if (currentPost.get('markup') == choice[0]) { %> selected="selected"<% } %>>
               <%= choice[1] %>
             </option>
