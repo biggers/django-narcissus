@@ -1,9 +1,8 @@
 Django-Narcissus
 ================
 
-*Note: This project is still in-progress and hasn't progressed to an intiial
-release yet. Be aware that it doesn't quite work as it is, but it should be
-ready in the near future.*
+*Note: This project is currently inactive. In it's current form, it has too
+much magic and is over-complex.*
 
 This project aims to provide an easily usable blog engine for Django with a
 built-in dashboard based on Backbone.js and Twitter Bootstrap to make it very
